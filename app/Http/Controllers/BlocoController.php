@@ -9,9 +9,22 @@ use Illuminate\Http\Request;
 
 class BlocoController extends Controller
 {
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        return response()->json(Bloco::with('condominio', 'sindico', 'apartamentos', 'manutencoes')->get());
+
+        $condominioId = $request->condominio_id;
+
+        $query = Bloco::query();
+
+        if ($condominioId) {
+            $query->where('condominio_id', $condominioId);
+        }
+
+        $blocos = $query->get();
+
+        return response()->json($blocos);
+
+        //return response()->json(Bloco::with('condominio', 'sindico', 'apartamentos', 'manutencoes')->get());
     }
 
     public function show(Bloco $bloco): JsonResponse
