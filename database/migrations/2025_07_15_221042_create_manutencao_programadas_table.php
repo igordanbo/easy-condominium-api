@@ -21,7 +21,7 @@ class CreateManutencaoProgramadasTable extends Migration
             $table->foreignId('apartamento_id')->nullable()->constrained();
             $table->date('data_agendada');
             $table->date('data_conclusao')->nullable();
-            $table->enum('status', ['agendado', 'concluido'])->default('agendado');
+            $table->enum('status', ['agendado', 'concluido', 'cancelado', 'adiado'])->default('agendado');
             $table->timestamps();
         });
     }
